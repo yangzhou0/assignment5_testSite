@@ -1,6 +1,6 @@
 // wrap in IIFE to control scope
 (function(){
-  const baseURL = 'http://167.99.14.231:8002';
+  const baseURL = 'http://localhost:8001';
   //Utility function for all request methods below: GET, PUT, POST, DELETE
   async function callAPI(method, uri, params, body){
     jsonMimeType = {
