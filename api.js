@@ -1,3 +1,4 @@
+// Credits to Larry
 // wrap in IIFE to control scope
 (function(){
   const baseURL = 'http://167.99.14.231:3000';
@@ -26,7 +27,7 @@
       return response.json(); // parses response to JSON
     }catch(err){
       console.error(err);
-      return "{'status':'error'}";
+      return err.message;
     }
   }
 
@@ -66,30 +67,26 @@ function createAPI(){
 
 // Display one photo based on given ID
 function readAPI(){
-  let photoId;
-  while (!photoId){ //prompt enter ID till user provides one
-   photoId = prompt('Enter the id of photo');
-  }
-  callAPI('GET','/api/photos/'+photoId, null, null)
+  //prompt user to enter info
+  let photoId = prompt('Enter the id of photo');
+  try{callAPI('GET',`/api/photos/${photoId}`, null, null)
     .then((photo)=>{
       console.log('\n***************************\n Start testing API Read:\n***************************\n');
       console.log('------Found photo------:');
       console.log(photo);
       console.log('***************************\n Finish testing API Read:\n***************************\n');
-  })
+  })}catch{
+    alert('wrong ID')
+  }
 }
 
 // Update one photo with given ID and display updated photo
 function updateAPI(){
-  let photoId;
-  let description;
-  while(!photoId || !description){
-    //prompt user to enter ID and description
-     photoId = prompt('Enter the id of photo');
-     description = prompt('Enter your description of the photo');
-  }
+  //prompt user to enter info
+  let photoId = prompt('Enter the id of photo');
+  let description = prompt('Enter your description of the photo');
   let data = {'description':description};
-  callAPI('PUT','/api/photos/'+photoId, null, data)
+  callAPI('PUT',`/api/photos/${photoId}`, null, data)
   .then((photo)=>{
     console.log('\n***************************\n Start testing API Update:\n***************************\n');
     console.log('------Updated photo------:');
@@ -100,12 +97,9 @@ function updateAPI(){
 
 // Delete one photo with given ID and return result
 function deleteAPI(){
-  let photoId;
-  while(!photoId){
-    //prompt user to enter ID
-   photoId = prompt('Enter the id of photo');
-  }
-  callAPI('DELETE', '/api/photos/'+photoId, null, null)
+  //prompt user to enter info
+  let photoId = prompt('Enter the id of photo');
+  callAPI('DELETE', `/api/photos/${photoId}`, null, null)
     .then((result)=>{
       console.log('\n***************************\n Start testing API Delete:\n***************************\n');
       console.log('------Result------:');
