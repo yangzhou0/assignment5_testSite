@@ -40,10 +40,11 @@ function listAPI(){
       console.log(photos);
       console.log('***************************\n Finish testing API List:\n***************************\n');
       //list ids so its convenient for users to grab to test other APIs
+      let result = document.getElementById("result");
+      result.value = 'IDs of uploaded images:\n'
       photos.forEach((item, i) => {
-        document.getElementById("result").value += item['_id'];
-        document.getElementById("result").value += '\n';
-
+        result.value += item['_id'];
+        result.value += '\n';
       });
     })
 }
