@@ -39,21 +39,27 @@ function listAPI(){
       console.log('------List photos------:');
       console.log(photos);
       console.log('***************************\n Finish testing API List:\n***************************\n');
+      //list ids so its convenient for users to grab to test other APIs
+      photos.forEach((item, i) => {
+        document.getElementById("result").value += item['_id'];
+        document.getElementById("result").value += '\n';
+
+      });
     })
 }
 
 // Afer validating that there's a file selected, create a new entry in DB and display it
 function createAPI(){
-  let input = document.querySelector('input[type="file"]');
+  let input = document.querySelector('input[type="file"]');//grab the input selector
   if (input.value){
     let data = new FormData();
-    data.append('image', input.files[0]);
+    data.append('image', input.files[0]);// the image we selected
     data.append('description','This is an AJAX API test for description');
     data.append('hashtag','This is an AJAX API test for hashtag');
     callAPI('POST', '/api/photos', null, data)
       .then((photo)=>{
         photoId = photo._id;
-        savedPhoto = photo;  // keep a handle to the created photo object
+        savedPhoto = photo;
         console.log('\n***************************\n Start testing API create:\n***************************\n');
         console.log('------Created photo------:');
         console.log(photo);
@@ -149,5 +155,6 @@ document.querySelector('#testDeleteAll').addEventListener("click", ()=>{
   deleteAllAPI();
 });
 
-
+//add default value in textarea
+document.getElementById("result").value = 'IDs of uploaded images:\n'
 })();
